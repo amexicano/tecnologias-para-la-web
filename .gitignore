@@ -1,0 +1,5 @@
+# Archivos generados y compilados a ignorar
+
+target
+node_modules
+dist 

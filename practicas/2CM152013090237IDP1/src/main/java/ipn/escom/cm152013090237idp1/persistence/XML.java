@@ -40,8 +40,7 @@ public class XML {
             Document document = new Document();
             writer = new FileWriter(this.xmlFile);
         
-            document.setRootElement(new Element("OPTION_MULTIPLE_MOVIECLIP")
-                    .setAttribute(new Attribute("PLANTILLA", "prototipo_OMMC.swf")));
+            document.setRootElement(new Element("OPTION_MULTIPLE_MOVIECLIP"));
             new XMLOutputter().output(document, writer);
             writer.flush();
             writer.close();
@@ -79,7 +78,7 @@ public class XML {
         if(id > this.doc.getRootElement().getContentSize()) return false;
         this.doc
                 .getRootElement()
-                .removeContent(id);
+                .removeContent(2*(id-1) + 1);
         return this.saveChanges();
     }
     

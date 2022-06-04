@@ -4,15 +4,9 @@ import ipn.escom.cm152013090237idp1.CRUD.QuestionCRUD;
 import ipn.escom.cm152013090237idp1.model.Answer;
 import ipn.escom.cm152013090237idp1.model.Question;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,8 +35,6 @@ public class AddQuestion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
             String rightAnswer = (String) request.getParameter("selection");
@@ -56,12 +48,7 @@ public class AddQuestion extends HttpServlet {
             }
             String path = this.getServletContext().getRealPath("/");
             QuestionCRUD crud = new QuestionCRUD(path);
-            response.addCookie(
-                new Cookie(
-                    "hasAdded",
-                    Boolean.toString(crud.add(q))
-                )
-            );
+            crud.add(q);
         } catch (JDOMException ex) {}
         response.sendRedirect("../view/all");
     }

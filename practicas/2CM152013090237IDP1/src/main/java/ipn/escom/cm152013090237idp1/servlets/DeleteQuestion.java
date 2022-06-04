@@ -2,9 +2,7 @@ package ipn.escom.cm152013090237idp1.servlets;
 
 import ipn.escom.cm152013090237idp1.CRUD.QuestionCRUD;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,22 +21,14 @@ public class DeleteQuestion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            Cookie hasDelete;
-            try{
-                int id = Integer.parseInt((String) request.getParameter("id"));
-                String path  = this.getServletContext().getRealPath("/");
-                QuestionCRUD crud  = new QuestionCRUD(path);
-                hasDelete  = new Cookie("hasDelete",Boolean.toString(crud.remove(id)));
-                
-            }catch (JDOMException | NumberFormatException e){
-                hasDelete  = new Cookie("hasDelete",Boolean.toString(false));
-            }
-            response.addCookie(hasDelete);
-            response.sendRedirect("../view/all");
-        }
+        /* TODO output your page here. You may use following sample code. */
+        try{
+            int id = Integer.parseInt((String) request.getParameter("id"));
+            String path  = this.getServletContext().getRealPath("/");
+            QuestionCRUD crud  = new QuestionCRUD(path);
+            crud.remove(id);
+        }catch (JDOMException | NumberFormatException e){}
+        response.sendRedirect("../view/all");
     }
     
     /**

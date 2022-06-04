@@ -78,16 +78,3 @@ public class ViewAllQuestion extends HttpServlet {
     }
 
 }
-
-
-/*
-int id ;
-try{
-    id = Integer.parseInt((String) request.getParameter("id"));
-    Cookie[] cookies = request.getCookies();
-    for(Cookie cookie : cookies){
-        if(cookie.getName().equals("hasDelete"));
-        if(cookie.getName().equals("hasSaved"));
-    }
-} catch(NumberFormatException nfe){} 
- */

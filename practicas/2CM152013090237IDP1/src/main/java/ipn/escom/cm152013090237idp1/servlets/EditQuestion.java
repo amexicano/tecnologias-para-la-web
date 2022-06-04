@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,6 +69,7 @@ public class EditQuestion extends HttpServlet {
                 out.println("<input type='hidden' name='id' id='id' value='"+id+"' required/>");
                 out.println("<input type='submit' value='Edit Question'/>  ");
                 out.println("</form>");
+                out.println("<a href='../view/all'>Back</a>");
                 out.println("<br/>");
             } catch (JDOMException e){
                 
@@ -90,8 +90,6 @@ public class EditQuestion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
             String rightAnswer = (String) request.getParameter("selection");
@@ -108,12 +106,7 @@ public class EditQuestion extends HttpServlet {
             int id = Integer.parseInt((String) request.getParameter("id"));
             String path = this.getServletContext().getRealPath("/");
             QuestionCRUD crud = new QuestionCRUD(path);
-            response.addCookie(
-                    new Cookie(
-                            "hasEdited",
-                            Boolean.toString(crud.update(id, q))
-                    )
-            );
+            crud.update(id, q);
         } catch (JDOMException ex) {}
         response.sendRedirect("../view/all");
     }
